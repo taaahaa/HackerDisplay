@@ -1,33 +1,16 @@
-#GAUGE WITH RASPI INPUT
+#GAUGE WITH LOCAL FILES
 
+from cProfile import label
 import dash_daq as daq
 import dash_bootstrap_components as dbc
 import js2py
 from dash import Dash, dash, dcc, html
 from dash.dependencies import Input, Output
-import RPi.GPIO as GPIO
 import os
 
-freshINPUT = 0
-grayINPUT = 0
-blackINPUT = 0
+# assets_url_path='/assets/gauge.css'
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(freshINPUT, GPIO.IN)
-GPIO.setup(grayINPUT, GPIO.IN)
-GPIO.setup(blackINPUT, GPIO.IN)
-
-def getFresh():
-    id='freshInput'
-    return GPIO.input(freshINPUT)
-def getGray():
-    id='grayInput'
-    return GPIO.input(grayINPUT)
-def getBlack():
-    id='blackInput'
-    return GPIO.input(blackINPUT)
-
-app = dash.Dash(__name__,assets_url_path='/assets/gauge.css',external_stylesheets=[dbc.themes.DARKLY])
+app = dash.Dash(__name__,include_assets_files=True,external_stylesheets=[dbc.themes.DARKLY])
 
 app.css.config.serve_locally = True
 app.scripts.config.serve_locally = True
@@ -37,8 +20,9 @@ app.layout = html.Div(children=[
         html.Div([
             daq.Gauge(
                 label='FRESH',
+                labelPosition='bottom',
                 id='fresh',
-                value=getFresh(),
+                value=0,
                 max=100,
                 min=0,
                 color={
@@ -55,14 +39,22 @@ app.layout = html.Div(children=[
                     'interval': 25,
                     'labelInterval': 1,
                 }
-            ), 
+            ),
+            dcc.Slider(
+                id='slider1',
+                min=0,
+                max=100,
+                step=5,
+                value=0,
+            )
         ], className='four columns'),
 
         html.Div([
             daq.Gauge(
                 label='GRAY',
+                labelPosition='bottom',
                 id='gray',
-                value=getGray(),
+                value=0,
                 max=100,
                 min=0,
                 color={
@@ -79,13 +71,21 @@ app.layout = html.Div(children=[
                     'labelInterval': 1,
                 },
             ),
+            dcc.Slider(
+                id='slider2',
+                min=0,
+                max=100,
+                step=5,
+                value=0,
+            ),
         ], className='four columns'),
 
         html.Div([
             daq.Gauge(
                 label='BLACK',
+                labelPosition='bottom',
                 id='black',
-                value=getBlack(),
+                value=0,
                 max=100,
                 min=0,
                 color={
@@ -103,17 +103,27 @@ app.layout = html.Div(children=[
                     'labelInterval': 1,
                 }
             ),
+            dcc.Slider(
+                id='slider3',
+                min=0,
+                max=100,
+                step=5,
+                value=0,
+            )
         ], className='four columns'),
-    ], className='row', style={'text-align': 'center', 'verticalAlign': 'middle', 'display': 'inline'}),
+    ], className='row', style={}),
 ])
 
 @app.callback(Output(component_id='fresh', component_property='value'),
               Output(component_id='gray', component_property='value'),
               Output(component_id='black', component_property='value'),
+              Input(component_id='slider1', component_property='value'),
+              Input(component_id='slider2', component_property='value'),
+              Input(component_id='slider3', component_property='value'),
               )
 
-def update_output(freshInput, grayInput, blackInput):
-    return getFresh(), getGray(), getBlack()
+def update_output(slider1, slider2, slider3):
+    return slider1, slider2, slider3
 
 
 if __name__ == '__main__':
