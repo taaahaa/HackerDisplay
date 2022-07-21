@@ -1,3 +1,4 @@
 #MENU CALLBACKS
 
-from dash import Input, Output
+from dash import Input, Output, callback
+

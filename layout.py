@@ -6,5 +6,7 @@ import dash_bootstrap_components as dbc
 import dash_daq as daq
 
 layout = html.Div([
-    
+    html.Div([
+        
+    ])
 ])
