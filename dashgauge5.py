@@ -1,4 +1,4 @@
-#GAUGE WITH RASPI INPUT
+#I DONT REMEMBER WHAT I WAS DOING WITH THIS
 
 import dash_daq as daq
 import dash_bootstrap_components as dbc
