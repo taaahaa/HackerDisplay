@@ -9,11 +9,11 @@ import time
 
 
 # create the spi bus
-spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
+spiBus = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
 # create the cs (chip select)
 chipSelect = digitalio.DigitalInOut(board.D5)
 # create the mcp object
-mcpObject = MCP.MCP3008(spi, chipSelect)
+mcpObject = MCP.MCP3008(spiBus, chipSelect)
 # create an analog input channel on pin 0
 channel = AnalogIn(mcpObject, MCP.P0)
 
