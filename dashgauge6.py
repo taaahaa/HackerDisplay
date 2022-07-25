@@ -8,19 +8,18 @@ from dash.dependencies import Input, Output
 from smbus import SMBus
 import os
 
-freshINPUT = 18
-grayINPUT = 0
-blackINPUT = 0
+bus = SMBus(1)
+
 
 def getFresh():
     id='freshInput'
     return bus.read_byte(0x4b)
 def getGray():
     id='grayInput'
-    return GPIO.input(grayINPUT)
+    return 0
 def getBlack():
     id='blackInput'
-    return GPIO.input(blackINPUT)
+    return 0
 
 app = dash.Dash(__name__,assets_url_path='/assets/gauge.css',external_stylesheets=[dbc.themes.DARKLY])
 
