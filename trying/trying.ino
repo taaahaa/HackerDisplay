@@ -17,6 +17,7 @@ void setup() {
   while (millis() < 100000)
   {
     val = analogRead(in);
+    Serial.println(val);
     if (val > valmax)
     {
       valmax = val;
@@ -43,7 +44,7 @@ void setup() {
 }
 void loop() {
   // put your main code here, to run repeatedly:
-  sensorValue = analogRead(in);
+  int sensorValue = analogRead(in);
   sensorValue = map(sensorValue, valmin, valmax, 0, 255);
     if (sensorValue != 0)
       Serial.println(sensorValue);
