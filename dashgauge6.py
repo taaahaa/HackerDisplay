@@ -5,15 +5,16 @@ import dash_bootstrap_components as dbc
 import js2py
 from dash import Dash, dash, dcc, html
 from dash.dependencies import Input, Output
-from smbus import SMBus
+import RPi.GPIO as GPIO
+from ADCDevice import *
 import os
 
-bus = SMBus(1)
+adc = ADS7830()
 
 
 def getFresh():
     id='freshInput'
-    return bus.read_byte(0x4b)
+    return adc.analogRead(0)
 def getGray():
     id='grayInput'
     return 0
