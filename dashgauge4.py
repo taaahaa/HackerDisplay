@@ -8,7 +8,7 @@ from dash.dependencies import Input, Output
 import RPi.GPIO as GPIO
 import os
 
-freshINPUT = 
+freshINPUT = 18
 grayINPUT = 0
 blackINPUT = 0
 
