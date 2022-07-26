@@ -14,10 +14,7 @@ QList<int> temp;
 void setup() {
   // put your setup code here, to run once:
   Serial.begin(9600);
-  while (millis() < 100000)
-  {
-    val = analogRead(in);
-    Serial.println(val);
+  while (millis < 500)
     if (val > valmax)
     {
       valmax = val;
@@ -45,7 +42,7 @@ void setup() {
 void loop() {
   // put your main code here, to run repeatedly:
   int sensorValue = analogRead(in);
-  sensorValue = map(sensorValue, valmin, valmax, 0, 255);
-    if (sensorValue != 0)
-      Serial.println(sensorValue);
+  sensorValue = map(sensorValue, valmin, valmax, 0, 100);
+  Serial.println(sensorValue);
+  delay(100);
 }
