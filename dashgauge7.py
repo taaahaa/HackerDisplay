@@ -103,6 +103,7 @@ app.layout = html.Div(children=[
             dcc.Input(
                 id='grayInput',
                 type='hidden',
+                autoComplete='True',
                 value=getGray(),
             )
         ], className='four columns'),
@@ -133,7 +134,7 @@ app.layout = html.Div(children=[
             dcc.Input(
                 id='blackInput',
                 type='hidden',
-                autoComplete='True';
+                autoComplete='True',
                 value= getBlack(),
             )
         ], className='four columns'),
