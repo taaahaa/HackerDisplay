@@ -18,7 +18,7 @@ GPIO.setup(freshINPUT, GPIO.IN)
 GPIO.setup(grayINPUT, GPIO.IN)
 GPIO.setup(blackINPUT, GPIO.IN)
 
-ser = serial.Serial('/dev/ttyACM1', 9600, timeout=1)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
 ser.reset_input_buffer()
 
 def getFresh():
@@ -72,6 +72,8 @@ app.layout = html.Div(children=[
             ), 
             dcc.Input(
                 id='freshInput',
+                type='hidden',
+                autoComplete='True',
                 value=getFresh(),
             )
         ], className='four columns'),
@@ -100,6 +102,7 @@ app.layout = html.Div(children=[
             ),
             dcc.Input(
                 id='grayInput',
+                type='hidden',
                 value=getGray(),
             )
         ], className='four columns'),
@@ -129,6 +132,8 @@ app.layout = html.Div(children=[
             ),
             dcc.Input(
                 id='blackInput',
+                type='hidden',
+                autoComplete='True';
                 value= getBlack(),
             )
         ], className='four columns'),
