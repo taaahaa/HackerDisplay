@@ -18,6 +18,9 @@ GPIO.setup(freshINPUT, GPIO.IN)
 GPIO.setup(grayINPUT, GPIO.IN)
 GPIO.setup(blackINPUT, GPIO.IN)
 
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
+ser.reset_input_buffer()
+
 def getFresh():
     id='freshInput'
     water = ser.read()
@@ -122,5 +125,4 @@ def update_output(freshInput, grayInput, blackInput):
 
 if __name__ == '__main__':
     app.run_server(debug=True)
-    ser = serial.Serial('/dev/ttyACM0', 9600, timeout=1)
-    ser.reset_input_buffer()
+    
