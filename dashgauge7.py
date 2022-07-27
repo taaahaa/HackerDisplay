@@ -22,17 +22,21 @@ ser = serial.Serial('/dev/ttyACM1', 9600, timeout=1)
 ser.reset_input_buffer()
 
 def getFresh():
-    id='freshInput'
     water = ser.read()
     if water == "freshInput" and ser <=100 and ser >=0:
         freshInput = ser.read()
         return freshInput
+
 def getGray():
-    id='grayInput'
-    return GPIO.input(grayINPUT)
+    water = ser.read()
+    if water == "grayInput" and ser <=100 and ser >=0:
+        grayInput = ser.read()
+        return grayInput
 def getBlack():
-    id='blackInput'
-    return GPIO.input(blackINPUT)
+    water = ser.read()
+    if water == "blackInput" and ser <=100 and ser >=0:
+        blackInput = ser.read()
+        return blackInput
 
 app = dash.Dash(__name__,assets_url_path='/assets/gauge.css',
                 external_stylesheets=[dbc.themes.DARKLY],
@@ -46,6 +50,7 @@ app.layout = html.Div(children=[
         html.Div([
             daq.Gauge(
                 label='FRESH',
+                labelPosition='bottom',
                 id='fresh',
                 value=getFresh(),
                 max=100,
@@ -65,11 +70,16 @@ app.layout = html.Div(children=[
                     'labelInterval': 1,
                 }
             ), 
+            dcc.Input(
+                id='freshInput',
+                value=getFresh(),
+            )
         ], className='four columns'),
 
         html.Div([
             daq.Gauge(
                 label='GRAY',
+                labelPosition='bottom',
                 id='gray',
                 value=getGray(),
                 max=100,
@@ -88,11 +98,16 @@ app.layout = html.Div(children=[
                     'labelInterval': 1,
                 },
             ),
+            dcc.Input(
+                id='grayInput',
+                value=getGray(),
+            )
         ], className='four columns'),
 
         html.Div([
             daq.Gauge(
                 label='BLACK',
+                labelPosition='bottom',
                 id='black',
                 value=getBlack(),
                 max=100,
@@ -112,6 +127,10 @@ app.layout = html.Div(children=[
                     'labelInterval': 1,
                 }
             ),
+            dcc.Input(
+                id='blackInput',
+                value= getBlack(),
+            )
         ], className='four columns'),
     ], className='row', style={'text-align': 'center', 'verticalAlign': 'middle', 'display': 'inline'}),
 ])
