@@ -36,9 +36,8 @@ def getBlack():
 
 app = dash.Dash(__name__,assets_url_path='/assets/gauge.css',
                 external_stylesheets=[dbc.themes.DARKLY],
-                )
+                suppress_callback_exceptions = True)
 
-app.suppress_callback_exceptions = True
 app.css.config.serve_locally = True
 app.scripts.config.serve_locally = True
 
