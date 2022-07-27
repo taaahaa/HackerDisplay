@@ -117,6 +117,9 @@ app.layout = html.Div(children=[
 @app.callback(Output(component_id='fresh', component_property='value'),
               Output(component_id='gray', component_property='value'),
               Output(component_id='black', component_property='value'),
+              Input(component_id='freshInput', component_property='value'),
+              Input(component_id='grayInput', component_property='value'),
+              Input(component_id='blackInput', component_property='value'),
               )
 
 def update_output(freshInput, grayInput, blackInput):
